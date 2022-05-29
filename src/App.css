@@ -1,6 +1,11 @@
 .App {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
+}
+
+header {
+  border: 2px solid #444e;
+  margin-bottom: 30px;
 }
 
 a {
@@ -12,5 +17,50 @@ a {
 nav {
  display: flex;
  justify-content: space-around;
- padding-top: 30px;
+ padding: 10px;
+}
+
+.imgMovie {
+  width: 200px;
+  height: 100%;
+  transition: .3s;
+}
+
+
+
+.wrapperFilm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.headerTop {
+  position: relative;
+  cursor: pointer;
+}
+
+.imgMovie:hover {
+  opacity: .8;
+}
+
+.rating {
+  background-color: rgb(67, 67, 104);
+  border: 1px solid #444e;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.headerBottom {
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
 }
