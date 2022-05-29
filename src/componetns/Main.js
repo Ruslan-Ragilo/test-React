@@ -50,6 +50,9 @@ export default class Main extends Component {
     
     return ( 
       <div>
+        <div className='wrapperSearch'>
+          <input className='searchInput' type='text' placeholder='Введите название фильма' />
+        </div>
         <div className='wrapperFilm'>
           {
             items.map(el => {
