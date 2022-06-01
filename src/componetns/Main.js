@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Card from './Card';
+import { addLocalStorage } from './localstorage/addLocalStorageSearch';
+import { getLocalStorageSearch } from './localstorage/getLocalStorageSearch';
 
 export default class Main extends Component {
 
@@ -26,28 +28,37 @@ export default class Main extends Component {
       const jsonResponse = await getDataFilm.json();
       const responseFilms = await jsonResponse.films;
       
+      const localValue = getLocalStorageSearch();
       
       this.setState({
         isLoaded: true,
-        items: responseFilms
+        items: responseFilms,
+        valueSearch: localValue ? localValue : ''
       });
 
+      
       
     };
 
     fetchMovies(API_URL, API_KEY);
   }
 
+  onChangeSearch(e) {
+    this.setState({
+      valueSearch: e.target.value
+    })
+    addLocalStorage(e.target.value)
+  }
   
 
   render() {      
   
-    const { items , isLoaded } = this.state;
+    const { items , valueSearch } = this.state;
     
     return ( 
       <div>
         <div className='wrapperSearch'>
-          <input className='searchInput' type='text' placeholder='Введите название фильма' />
+          <input onChange={(e) => this.onChangeSearch(e)} value={valueSearch} className='searchInput' type='text' placeholder='Введите название фильма' />
         </div>
         <div className='wrapperFilm'>
           {

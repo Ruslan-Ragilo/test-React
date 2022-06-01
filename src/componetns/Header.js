@@ -7,9 +7,10 @@ export default class Header extends Component {
     super(props);
     this.state = {
       listNavLink: [
-        {to: "/", className: 'linkNav active', content: 'Main'},
+        {to: "/", className: 'linkNav', content: 'Main'},
         {to: "/about", className: 'linkNav', content: 'About'}
-      ]
+      ],
+      activeNavLink: 'Main'
     };
   }
   
@@ -17,27 +18,17 @@ export default class Header extends Component {
 
     const { listNavLink } = this.state;
 
-    const togleActiveLink = (e) => {
-      
-      // if (e.target.classList.contains('active')) {
-      //   console.log(e.target)
-      //   return null;
-      // } else {
-      //   listNavLink.map(el => {
-      //     if(el.className.indexOf(' active') != -1) {
-      //       el.className = el.className.split(' ').shift();
-      //       console.log(el.className)
-      //     }
-      //   })
-      //   e.target.classList.add('active');
-      // }
+    const togleActiveLink = (content) => {
+      this.setState({
+        activeNavLink: content
+      })
     }
 
     const showLinkNav = listNavLink.map(el => {
-      return <Link onClick={togleActiveLink} key={el.content} to={el.to} className={el.className}>{el.content}</Link>
+      return <Link onClick={() => togleActiveLink(el.content)} 
+      key={el.content} to={el.to} 
+      className={this.state.activeNavLink === el.content ? el.className + ' active' : el.className + ''}>{el.content}</Link>
     })
-
-
 
     return (
       <div>
