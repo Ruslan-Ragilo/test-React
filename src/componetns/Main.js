@@ -41,12 +41,8 @@ export default class Main extends Component {
   
 
   render() {      
-
-    
+  
     const { items , isLoaded } = this.state;
-    
-    console.log(items)
-    
     
     return ( 
       <div>

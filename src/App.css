@@ -40,7 +40,6 @@ nav {
 }
 
 
-
 .wrapperFilm {
   display: flex;
   flex-wrap: wrap;
@@ -96,4 +95,8 @@ nav {
 
 .searchInput:hover {
   transform: scale(1.06);
+}
+
+.linkNav.active {
+  color: rgb(241, 179, 86); 
 }
