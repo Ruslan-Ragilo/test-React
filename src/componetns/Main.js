@@ -1,46 +1,32 @@
 import React, { Component } from 'react'
 import Card from './Card';
+import { fetchMovies } from './fetch/fetchRequestMovie';
 import { addLocalStorage } from './localstorage/addLocalStorageSearch';
 import { getLocalStorageSearch } from './localstorage/getLocalStorageSearch';
+import { API_URL, API_KEY } from './variable/variable';
 
 export default class Main extends Component {
 
   constructor(props) {
+    const localValue = getLocalStorageSearch();
     super(props);
     this.state = {
       error: null,
       isLoaded: false,
-      items: []
+      items: [],
+      valueSearch: localValue ? localValue : ''
     };
   }
   componentDidMount() {
-    let API_KEY = "66bef919-8103-474b-95f8-d133153f6421"  
-    let API_URL = `https://kinopoiskapiunofficial.tech/api/v2.2/films/top?100`;
-    
-    //fetch request
-    const fetchMovies = async (url, key) => {
-    const getDataFilm = await fetch(url, {
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-KEY": key,
-        },
-      });
-      const jsonResponse = await getDataFilm.json();
-      const responseFilms = await jsonResponse.films;
-      
-      const localValue = getLocalStorageSearch();
-      
+    fetchMovies(API_URL, API_KEY)
+    .then((responseFilms) => {
       this.setState({
         isLoaded: true,
         items: responseFilms,
-        valueSearch: localValue ? localValue : ''
       });
-
-      
-      
-    };
-
-    fetchMovies(API_URL, API_KEY);
+    }).catch((error) => {
+      console.log(error);
+    })
   }
 
   onChangeSearch(e) {
