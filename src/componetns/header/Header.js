@@ -27,7 +27,8 @@ export default class Header extends Component {
     this.state = {
       listNavLink: [
         {to: "/", className: 'linkNav', content: 'Main'},
-        {to: "/about", className: 'linkNav', content: 'About'}
+        {to: "/about", className: 'linkNav', content: 'About'},
+        {to: "/form", className: 'linkNav', content: 'Form'}
       ],
       activeNavLink: 'Main'
     };
