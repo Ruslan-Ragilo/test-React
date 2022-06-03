@@ -1,7 +1,30 @@
 import styledComponents from 'styled-components';
 
-
 export const Wrapper_form = styledComponents.div`
+
+    .wrapperDrop {
+        height: 35px;
+        border: 3px solid green;
+        padding: 5px;
+        background-color: white;
+        border-radius: 10px;
+        transition: .3s;
+    }
+
+    .wrapperDrop.active {
+        height: 175px;
+    }
+
+    .activeCountry {
+        background-color: white;
+        height: 35px;
+    }
+
+    .activeCountry:hover {
+        background-color: gray;
+    }
+
+    
 
     form {
         display: flex;
@@ -83,9 +106,4 @@ export const Wrapper_form = styledComponents.div`
         margin: 10px 0;
     }
 
-    .wrapperDrop {
-        height: 40px;
-        position: relative;
-        background-color: white;
-    }
 `

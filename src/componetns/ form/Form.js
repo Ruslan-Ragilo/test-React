@@ -1,23 +1,57 @@
 import React, { Component } from 'react';
+import ActiveCountryItem from './ActiveCountryItem';
 // import { Dropdown } from 'semantic-ui-react';
 import { countryOptions } from './CountryForForm';
 import DropdownCustoms from './dropdown/DropdownCustoms ';
 import { Wrapper_form } from './Form.style';
 
 
+
 export default class Form extends Component {
 
     constructor(props) {
         super(props)
+        this.dropActive = this.dropActive.bind(this);
+        this.wrapperDropActive = this.wrapperDropActive.bind(this);
+        
+        this.state = {
+           country: '',
+           dropShowItem: false,
+        }
+    }
+
+    dropActive(e) {
+        this.setState({
+            country: e.target.textContent
+        })
+    }
+
+    wrapperDropActive() {
+        this.setState((state) => {
+            return {dropShowItem: !state.dropShowItem}
+        })
     }
     
     render() {
-        let timeInMs = new Date();
-        let dateNow = timeInMs.getFullYear()+ '-0' +timeInMs.getMonth()+ '-0' +timeInMs.getDay();
+        // let timeInMs = new Date();
+        // let dateNow = timeInMs.getFullYear()+ '-0' +timeInMs.getMonth()+ '-0' +timeInMs.getDay();
+        let {country, dropShowItem} = this.state;
+        let isActiveItem = dropShowItem;
 
+        //Item inner select (option)
         const DropdownCustomsItem = countryOptions.map(el => {
-            return <DropdownCustoms key={el.key} flag={el.flag} text={el.text}/>
+            return <DropdownCustoms isActiveItem={isActiveItem} dropActive={this.dropActive} key={el.key} flag={el.flag} text={el.text}/>
         })
+
+        //Active item country
+        let DropdownActive;
+        if (country) {
+            DropdownActive = countryOptions.map(el => {
+            if (el.text == country) {
+                return <ActiveCountryItem className='active' dropActive={this.dropActive} key={el.key} flag={el.flag} text={el.text}/>
+             }
+            })
+            } 
 
         return (
         <Wrapper_form>
@@ -25,7 +59,8 @@ export default class Form extends Component {
                 <label htmlFor="login">Login</label><input type="text" id="login" required />
                 <label htmlFor="password">Password</label><input type="password" id="password" required />
                 <label htmlFor="password">Enter country</label>
-                <div className='wrapperDrop'>
+                <div className={dropShowItem ? 'wrapperDrop active' : 'wrapperDrop'} onClick={this.wrapperDropActive}>
+                    <div className='activeCountry'>{DropdownActive}</div>
                     {DropdownCustomsItem}
                 </div>
                 <label htmlFor="start">Bird date:</label>
