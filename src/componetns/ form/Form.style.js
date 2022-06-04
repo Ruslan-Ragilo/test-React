@@ -106,4 +106,19 @@ export const Wrapper_form = styledComponents.div`
         margin: 10px 0;
     }
 
+    button {
+        padding: 10px;
+        border: none;
+        color: white;
+        background-color: red;
+        width: 150px;
+        margin: 10px auto;
+        font-weight: bold;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    button:hover {
+        transform: scale(.9)
+    }
 `
