@@ -24,16 +24,16 @@ export default class cardData extends Component {
 
   render() {
       let cardForm = this.props;
-      console.log(cardForm.dataBird)
     return (
       <Wrapper_card_data>
-          <h2>login: {toString(cardForm.login)}</h2>
+          <h2>login: {cardForm.login}</h2>
           <p>email: {cardForm.email}</p>
           <p>phone: {cardForm.phone}</p>
           <p>country: {cardForm.country}</p>
           <p>dataBird: {cardForm.dataBird}</p>
+          <p>file: {cardForm.file}</p>
           <p>political: {cardForm.political ? 'true': 'false'}</p>
-          <p>checkbox: {cardForm.checkbox ? 'true': 'false'}</p>
+          <p>checkbox: {cardForm.switcher ? 'true': 'false'}</p>
       </Wrapper_card_data>
     )
   }

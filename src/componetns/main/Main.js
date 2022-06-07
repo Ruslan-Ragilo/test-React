@@ -70,7 +70,7 @@ export default class Main extends Component {
     
     return ( 
       <div>
-        <SearchInput onChangeSearch={this.onChangeSearch} valueSearch={this.valueSearch}/>
+        <SearchInput onChangeSearch={this.onChangeSearch} valueSearch={valueSearch}/>
         <Wrapper_film>
           {
             items.map(el => {

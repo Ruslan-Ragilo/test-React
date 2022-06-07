@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import styled  from 'styled-components';
+import { addSesionStorage } from '../sesionstorage/addSesoinStorage';
+import { getSesionStorage } from '../sesionstorage/getSesionStorage';
 
 const Wrapper_header = styled.div`
   header {
@@ -30,19 +32,22 @@ export default class Header extends Component {
         {to: "/about", className: 'linkNav', content: 'About'},
         {to: "/form", className: 'linkNav', content: 'Form'}
       ],
-      activeNavLink: 'Main'
+      activeNavLink: getSesionStorage(),
     };
   }
   
   render() {
 
-    const { listNavLink } = this.state;
+
+    const { listNavLink , activeNavLink} = this.state;
 
     const togleActiveLink = (content) => {
       this.setState({
         activeNavLink: content
       })
     }
+
+    addSesionStorage(activeNavLink);
 
     const showLinkNav = listNavLink.map(el => {
       return <Link onClick={() => togleActiveLink(el.content)} 

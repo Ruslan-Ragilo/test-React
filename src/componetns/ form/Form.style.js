@@ -9,7 +9,12 @@ export const Wrapper_form = styledComponents.div`
         background-color: white;
         border-radius: 10px;
         transition: .3s;
+        display: flex;
+        justify-content: center:
+        align-items: center;
+        flex-direction: column;
     }
+
 
     .wrapperDrop.active {
         height: 175px;
@@ -106,7 +111,7 @@ export const Wrapper_form = styledComponents.div`
         margin: 10px 0;
     }
 
-    button {
+    .btn {
         padding: 10px;
         border: none;
         color: white;
@@ -114,11 +119,38 @@ export const Wrapper_form = styledComponents.div`
         width: 150px;
         margin: 10px auto;
         font-weight: bold;
-        cursor: pointer;
         transition: .3s;
     }
 
-    button:hover {
-        transform: scale(.9)
+    .btn.active:hover{
+        transform: scale(0.9);
+        cursor: pointer;
+    }
+
+    .isDisabled {
+        opacity: .2;
+    }
+
+    input[type="file" i] {
+        color: white;
+    }
+
+    .errorColor {
+        color: white;
+        background-color: red;
+    }
+
+    .errorColorCounrtry {
+        background-color: red;
+        padding: 17px
+    }
+
+    .errorColorCounrtry {
+        background-color: red;
+        padding: 17px
+    }
+    
+    .errorCheckbox {
+        color: red;
     }
 `
