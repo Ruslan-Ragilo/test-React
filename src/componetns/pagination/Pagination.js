@@ -8,27 +8,31 @@ const Wrapper_pagination = styledComponents.div`
     .numberPages {
         margin: 0 10px 0px 10px;
     }
+    .numberPages.active {
+        color: yellow;
+    }
 `
 
 export default class Pagination extends Component {
 
-    constructor(props) {
-        super(props);
+    state = {
+        numberPage: this.props.numberPage
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.numberPage !== this.props.numberPage) {
+            this.setState({
+                numberPage: this.props.numberPage
+            })
+        }
     }
     
     
-
     render() {
-
-        const  getNumberPage = this.props.getNumberPage;
-
-        function getNumber (e) {
-            e.preventDefault()
-            let num = e.target.textContent;
-        }
         return (
         <Wrapper_pagination>
-            <a href='#' onClick={getNumber} className='numberPages'>{this.props.count}</a>
+            <a href='#' onClick={this.props.getNumberPage} className={this.props.numberPage == this.props.count
+                ? 'numberPages active' :'numberPages'}>{this.props.count}</a>
         </Wrapper_pagination>
         )
     }

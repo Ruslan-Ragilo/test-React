@@ -12,11 +12,6 @@ const  Wrapper_app = styled.div`
   margin: 0 auto
 `
 
-// const styleLink = document.createElement("link");
-// styleLink.rel = "stylesheet";
-// styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
-// document.head.appendChild(styleLink);
-
 export default class App extends Component  {
   render() {
     return (

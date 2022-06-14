@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 import styledComponents from 'styled-components';
-import Card from '../card/Card';
 import { fetchMovies } from '../fetch/fetchRequestMovie';
+import ListFilms from '../films/ListFilms';
+import FilterItems from '../filter/FilterItems';
 import { addLocalStorage } from '../localstorage/addLocalStorageSearch';
 import { getLocalStorageSearch } from '../localstorage/getLocalStorageSearch';
 import Pagination from '../pagination/Pagination';
+import PopupCard from '../popupCard/PopupCard';
 import SearchInput from '../searchInput/SearchInput';
+import Spinner from '../spinner/Spinner';
 import {API_KEY } from '../variable/variable';
-
-const Wrapper_film = styledComponents.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`
 
 const Wrapper_pagination = styledComponents.div`
   display: flex;
@@ -21,70 +18,123 @@ const Wrapper_pagination = styledComponents.div`
 `
 
 export default class Main extends Component {
+    localValue = getLocalStorageSearch();
 
-  constructor(props) {
-    const localValue = getLocalStorageSearch();
-    super(props);
-    this.state = {
+    state = {
       error: null,
       isLoaded: false,
-      items: [],
-      valueSearch: localValue ? localValue : '',
-      countPagesPagination: [ 1, 2, 3, 4, 5],
-      numberPage: 1,
-    };
-  }
+      items: null,
+      valueSearch: this.localValue ? this.localValue : '',
+      countPagesPagination: [1,2,3,4,5,6,7,8,13],
+      numberPage: `1`,
+      endPointFilms: ``,
+      endPointTOP : `top?type=TOP_250_BEST_FILMS&page=`,
+      isActivePopup: false,
+      idFilms: Number,
+      dataPopupFilm: {},
+    }
 
-  componentDidMount() {
-    fetchMovies(API_KEY, this.state.numberPage)
-    .then((responseFilms) => {
+    componentDidMount() {
+    if(this.state.endPointTOP) {
+      fetchMovies(API_KEY, this.state.endPointTOP, this.state.numberPage)
+        .then((responseFilms) => {
+          this.setState({
+            isLoaded: true,
+            items: responseFilms,
+          })
+        }).catch((error) => {
+          this.setState({
+            error: true,
+          })
+          console.log(error);
+        })
+    }
+  }
+  getNumberPage = (event) => {
+    event.preventDefault()
+    this.setState({
+      numberPage: event.target.textContent
+    })
+  }
+  showCardPopup = (event) => {
+    this.setState({
+      isActivePopup: true,
+      idFilms: event.target.getAttribute('id'),
+      dataPopupFilm: {}
+    });
+  }
+  closePopup = () => {
+    this.setState({
+      isActivePopup: false,
+    });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.numberPage !== prevState.numberPage) {
       this.setState({
-        isLoaded: true,
-        items: responseFilms,
-      });
-    }).catch((error) => {
-      console.log(error);
-    })
+        isLoaded: false,
+      })
+      fetchMovies(API_KEY, `${this.state.endPointTOP}${this.state.numberPage}`)
+        .then((responseFilms) => {
+          this.setState({
+            isLoaded: true,
+            items: responseFilms,
+          })
+        }).catch((error) => {
+          this.setState({
+            error: true,
+          })
+          console.log(error);
+        })
+    };
+    if( this.state.idFilms !== prevState.idFilms ) {
+      fetchMovies(API_KEY, this.state.idFilms)
+        .then((responseFilm) => {
+          this.setState({
+            dataPopupFilm: responseFilm,
+          })
+        }).catch((error) => {
+          this.setState({
+            error: true,
+          })
+          console.log(error);
+        })
+    }
   }
 
-  onChangeSearch(e) {
-    console.log(this)
-    this.setState({
-      valueSearch: e.target.value
-    })
-    addLocalStorage(e.target.value)
-  }
-  
-  getNumberPage(num) {
-    console.log(this)
-    console.log(num)
-    this.setState({
-      numberPage: num
-    })
-    
-  }
+  render() {  
+    console.log(this.state.dataPopupFilm);  
+    const { items , valueSearch, countPagesPagination, isLoaded, error, isActivePopup, dataPopupFilm } = this.state;
 
-  render() {      
-  
-    const { items , valueSearch, countPagesPagination } = this.state;
-    
-    return ( 
+    const isloadContent = isLoaded ? <ListFilms showCardPopup={this.showCardPopup} items={items} isLoaded={this.isLoaded}/> : <Spinner />;
+
+    const showPopup = isActivePopup ? <PopupCard closePopup={this.closePopup} dataPopupFilm={dataPopupFilm}  /> : null;
+
+    const isloadPagination = isLoaded ? <Wrapper_pagination>
+
+    {
+      countPagesPagination.map((el) => {
+        return <Pagination key={el} numberPage={this.state.numberPage} getNumberPage={this.getNumberPage} count={el} />
+      })
+    }
+
+  </Wrapper_pagination> : null;
+
+    const isError = error ? 'ffff' : ''
+     return ( 
       <div>
+        
+        {isError}
+
+        {showPopup}
+
         <SearchInput onChangeSearch={this.onChangeSearch} valueSearch={valueSearch}/>
-        <Wrapper_film>
-          {
-            items.map(el => {
-              return <Card name={el.nameRu} rating={el.rating} image={el.posterUrl} key={el.filmId} year={el.year} />
-            })
-          }
-        </Wrapper_film>
-        <Wrapper_pagination>
-          {
-            countPagesPagination.map(el => {
-              return <Pagination key={el} getNumberPage={this.getNumberPage} count={el} />
-            })
-          }
-        </Wrapper_pagination>
+
+        <FilterItems />
+        
+        {isloadContent}
+        
+        {isloadPagination}
+        
       </div>
     )
     

@@ -32,12 +32,11 @@ export default class Header extends Component {
         {to: "/about", className: 'linkNav', content: 'About'},
         {to: "/form", className: 'linkNav', content: 'Form'}
       ],
-      activeNavLink: getSesionStorage(),
+      activeNavLink: getSesionStorage() || 'Main',
     };
   }
   
   render() {
-
 
     const { listNavLink , activeNavLink} = this.state;
 

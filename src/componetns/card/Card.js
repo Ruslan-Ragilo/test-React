@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styledComponents from 'styled-components';
 
 const Wrapper_card = styledComponents.div`
+margin: 10px;
 .imgMovie {
   width: 200px;
   height: 300px;
@@ -41,6 +42,8 @@ const Wrapper_card = styledComponents.div`
 }
 `
 
+export const Name_film = styledComponents.p``;
+
 export default class Card extends Component {
 
     constructor(props) {
@@ -49,13 +52,13 @@ export default class Card extends Component {
 
   render() {
     return (
-      <Wrapper_card>
+      <Wrapper_card >
         <div className='headerTop'>
-            <img className='imgMovie' alt={this.props.name} src={this.props.image} />
+            <img onClick={this.props.showCardPopup} id={this.props.filmId} className='imgMovie' alt={this.props.name} src={this.props.image} />
             <div className='rating'><p>{this.props.rating}</p></div>
         </div>
         <div className='headerBottom'>
-            <p className='nameMovie'>{this.props.name}, {this.props.year}</p>
+            <Name_film className='nameMovie'>{this.props.name}, {this.props.year}</Name_film>
         </div>
       </Wrapper_card>
     )

@@ -75,16 +75,15 @@ export default class Form extends Component {
     validInput (cardFormData) {
         let arrError = '';
         const arrVal = Object.values(cardFormData);
-        for (let i = 0; i < arrVal.length; i++) {
-            if (arrVal[i] == 'error') {
-                arrError = arrVal[i];
+        arrVal.some((el, i) => {
+            if ((el) == 'error') {
                 this.setState({
                     disabled: true,
                     indexError: i
                 })
-                break;
+                return el;
             }
-        }
+        }) 
 
         if (!arrError) {
             this.setState({
