@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styledComponents from 'styled-components';
-import Card from '../card/Card'
+import Card from './card/Card'
 
 const Wrapper_film = styledComponents.div`
   display: flex;

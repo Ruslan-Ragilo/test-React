@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styledComponents from 'styled-components';
-import { Name_film } from '../card/Card';
+import { Name_film } from '../films/card/Card';
 
 const Wrapper_popup_card = styledComponents.div `
     height: 100vh;
@@ -71,7 +71,6 @@ export default class PopupCard extends Component {
         super(props);
     }
   render() {
-    console.log(this.props.dataPopupFilm)
     const {nameRu, description, posterUrl, ratingImdb, year} = this.props.dataPopupFilm;
     return (
       <Wrapper_popup_card>

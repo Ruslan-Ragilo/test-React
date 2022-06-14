@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import styled  from 'styled-components';
-import { addSesionStorage } from '../sesionstorage/addSesoinStorage';
-import { getSesionStorage } from '../sesionstorage/getSesionStorage';
+import { addSesionStorage } from '../../sesionstorage/sesionstorage/addSesoinStorage';
+import { getSesionStorage } from '../../sesionstorage/sesionstorage/getSesionStorage';
 
 const Wrapper_header = styled.div`
   header {
